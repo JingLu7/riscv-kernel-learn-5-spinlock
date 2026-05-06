@@ -8,8 +8,8 @@
 4. 同步原语: 提供自旋锁用于多核环境下的互斥访问 Makefile:47-48
 5. UART 驱动: 提供串口输出用于调试和诊断 main.c:25
 # 构建要求
-RISC-V 交叉编译工具链: riscv64-unknown-elf-gcc
-QEMU 系统模拟器: qemu-system-riscv64
+1. RISC-V 交叉编译工具链: riscv64-unknown-elf-gcc
+2. QEMU 系统模拟器: qemu-system-riscv64
 # 构建和运行
 ```
 # 编译内核  
