@@ -7,8 +7,15 @@ void uart_puts();
 void set_next_timer();
 void yield();
 void uart_puts(char *s);
+void kernelvec();
+void *myproc();
+void syscall();
+
 
 extern struct proc *current_proc;
+extern char trampoline[], uservec[];
+
+
 
 void kerneltrap(){
     uint64 scause = r_scause();
@@ -25,3 +32,14 @@ void kerneltrap(){
     }
 }
 
+void usertrap(){
+    w_stvec((uint64)kernelvec);
+
+    struct proc *p = myproc();
+    p->trapframe->epc = r_sepc();
+    if(r_scause == 8){
+        p->trapframe->epc += 4;
+        intr_on();
+        syscall();
+    }
+}
